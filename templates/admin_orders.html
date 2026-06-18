@@ -3,53 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заказы — Админка</title>
+    <title>Заказы — TkaniNaOtrez</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        body { background: #0a0a0a; color: white; }
-        .card { background: #111; border: 1px solid #2a2a2a; }
-        .new-order { border-left: 3px solid #0d6efd; }
+        :root {
+            --bg: #0a0a0f;
+            --card: #12121a;
+            --border: #1e1e30;
+            --new: #00d4aa;
+            --text: #e0e0e0;
+            --muted: #8888aa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span { color: #0d6efd; }
+
+        .badge-counter {
+            background: #0d6efd;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4); }
+            50% { box-shadow: 0 0 0 12px rgba(13, 110, 253, 0); }
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card i { font-size: 2rem; margin-bottom: 8px; }
+        .stat-card .value { font-size: 2rem; font-weight: 700; }
+        .stat-card .label { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 16px;
+        }
+
+        .order-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-card.new {
+            border-left: 3px solid var(--new);
+        }
+
+        .order-card:hover {
+            border-color: #0d6efd;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .order-id {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .status-new { background: rgba(0, 212, 170, 0.15); color: var(--new); }
+        .status-process { background: rgba(255, 193, 7, 0.15); color: #ffc107; }
+        .status-done { background: rgba(13, 110, 253, 0.15); color: #0d6efd; }
+
+        .order-info { margin-bottom: 12px; }
+
+        .order-info p {
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .order-info i { color: #0d6efd; width: 18px; }
+
+        .order-info .product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .order-comment {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            flex: 1;
+            min-width: 80px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-call { background: #198754; color: #fff; }
+        .btn-wa { background: #25d366; color: #fff; }
+        .btn-delete { background: rgba(220, 53, 69, 0.2); color: #dc3545; }
+
+        .btn-action:hover {
+            filter: brightness(1.2);
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-state i { font-size: 4rem; color: var(--muted); }
+        .empty-state h2 { margin-top: 16px; color: var(--muted); }
+
+        .refresh-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .refresh-btn:hover { border-color: #0d6efd; }
+
+        @media (max-width: 600px) {
+            .orders-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
     </style>
-    <meta http-equiv="refresh" content="30">  <!-- Автообновление каждые 30 секунд -->
 </head>
 <body>
-    <div class="container py-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1><i class="bi bi-list-check text-primary"></i> Заказы</h1>
-            <span class="badge bg-primary fs-5">{{ orders|length }} заявок</span>
+
+    <div class="header">
+        <div class="header-inner">
+            <a href="/admin/orders" class="logo">
+                <span>TKANI</span>NAOTREZ
+            </a>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <span class="badge-counter" id="totalBadge">0 заявок</span>
+                <button class="refresh-btn" onclick="location.reload()">
+                    <i class="bi bi-arrow-clockwise"></i> Обновить
+                </button>
+                <a href="/" class="refresh-btn" target="_blank">
+                    <i class="bi bi-box-arrow-up-right"></i> Сайт
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Статистика -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <i class="bi bi-inbox" style="color: #0d6efd;"></i>
+                <div class="value" id="totalOrders">0</div>
+                <div class="label">Всего заявок</div>
+            </div>
+            <div class="stat-card">
+                <i class="bi bi-star" style="color: #00d4aa;"></i>
+                <div class="value" id="newOrders">0</div>
+                <div class="label">Новых</div>
+            </div>
+            <div class="stat-card">
+                <i class="bi bi-rulers" style="color: #ffc107;"></i>
+                <div class="value" id="totalMeters">0</div>
+                <div class="label">Метров ткани</div>
+            </div>
+            <div class="stat-card">
+                <i class="bi bi-telephone" style="color: #198754;"></i>
+                <div class="value" id="todayOrders">0</div>
+                <div class="label">Сегодня</div>
+            </div>
         </div>
 
-        {% if orders %}
-        <div class="row">
-            {% for order in orders %}
-            <div class="col-md-6 mb-3">
-                <div class="card p-3 {% if order.status == 'Новый' %}new-order{% endif %}">
-                    <div class="d-flex justify-content-between">
-                        <h5>Заказ #{{ order.id }}</h5>
-                        <span class="badge bg-{{ 'primary' if order.status == 'Новый' else 'secondary' }}">
+        <!-- Заказы -->
+        <div class="orders-grid" id="ordersGrid">
+            {% if orders %}
+                {% for order in orders %}
+                <div class="order-card {% if order.status == 'Новый' %}new{% endif %}" id="order-{{ order.id }}">
+                    <div class="order-header">
+                        <span class="order-id">Заказ #{{ order.id }}</span>
+                        <button class="status-badge status-{% if order.status == 'Новый' %}new{% elif order.status == 'В обработке' %}process{% else %}done{% endif %}"
+                                onclick="changeStatus({{ order.id }})"
+                                title="Нажми чтобы изменить статус">
                             {{ order.status }}
-                        </span>
+                        </button>
                     </div>
-                    <hr class="border-secondary">
-                    <p class="mb-1"><strong>📦 {{ order.product }}</strong></p>
-                    <p class="mb-1">👤 {{ order.name }}</p>
-                    <p class="mb-1">📞 <a href="tel:+7{{ order.phone }}" class="text-primary">{{ order.phone }}</a></p>
-                    <p class="mb-1">📏 {{ order.meters }} метров</p>
-                    {% if order.comment %}
-                    <p class="mb-1">💬 {{ order.comment }}</p>
-                    {% endif %}
-                    <small class="text-secondary">{{ order.date }}</small>
+
+                    <div class="order-info">
+                        <p><span class="product-name">{{ order.product }}</span></p>
+                        <p><i class="bi bi-person"></i> {{ order.name }}</p>
+                        <p><i class="bi bi-telephone"></i> <a href="tel:{{ order.phone }}" style="color: #fff;">{{ order.phone }}</a></p>
+                        <p><i class="bi bi-rulers"></i> {{ order.meters }} метров</p>
+                        {% if order.comment %}
+                        <div class="order-comment">
+                            <i class="bi bi-chat-dots"></i> {{ order.comment }}
+                        </div>
+                        {% endif %}
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--muted);">
+                            <i class="bi bi-clock"></i> {{ order.date }}
+                        </p>
+                    </div>
+
+                    <div class="order-actions">
+                        <a href="tel:{{ order.phone }}" class="btn-action btn-call">
+                            <i class="bi bi-telephone-fill"></i> Звонок
+                        </a>
+                        <a href="https://wa.me/{{ order.phone | replace(' ', '') | replace('-', '') | replace('(', '') | replace(')', '') }}"
+                           class="btn-action btn-wa" target="_blank">
+                            <i class="bi bi-whatsapp"></i> WhatsApp
+                        </a>
+                        <button class="btn-action btn-delete" onclick="deleteOrder({{ order.id }})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <i class="bi bi-inbox"></i>
+                    <h2>Пока нет заявок</h2>
+                    <p style="color: var(--muted);">Заявки появятся здесь, когда клиенты заполнят форму на сайте</p>
+                </div>
+            {% endif %}
         </div>
-        {% else %}
-        <div class="text-center py-5">
-            <i class="bi bi-inbox display-1 text-secondary"></i>
-            <h3>Пока нет заказов</h3>
-        </div>
-        {% endif %}
+
     </div>
+
+    <script>
+        // Статистика
+        const orders = document.querySelectorAll('.order-card');
+        const totalOrders = orders.length;
+        const newOrders = document.querySelectorAll('.order-card.new').length;
+
+        let totalMeters = 0;
+        orders.forEach(card => {
+            const metersText = card.querySelector('.order-info p:nth-child(4)')?.textContent || '';
+            const meters = parseFloat(metersText) || 0;
+            totalMeters += meters;
+        });
+
+        // Сегодняшние
+        const today = new Date().toISOString().split('T')[0];
+        let todayCount = 0;
+        orders.forEach(card => {
+            const dateText = card.querySelector('.order-info p:last-child')?.textContent || '';
+            if (dateText.includes(today)) todayCount++;
+        });
+
+        document.getElementById('totalOrders').textContent = totalOrders;
+        document.getElementById('newOrders').textContent = newOrders;
+        document.getElementById('totalMeters').textContent = Math.round(totalMeters);
+        document.getElementById('todayOrders').textContent = todayCount;
+        document.getElementById('totalBadge').textContent = totalOrders + ' заявок';
+
+        // Смена статуса
+        const statuses = ['Новый', 'В обработке', 'Выполнен'];
+
+        function changeStatus(orderId) {
+            const badge = document.querySelector(`#order-${orderId} .status-badge`);
+            const currentStatus = badge.textContent.trim();
+            const currentIndex = statuses.indexOf(currentStatus);
+            const newStatus = statuses[(currentIndex + 1) % statuses.length];
+
+            fetch(`/api/admin/update_status/${orderId}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({status: newStatus})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    badge.textContent = newStatus;
+                    badge.className = 'status-badge status-' +
+                        (newStatus === 'Новый' ? 'new' : newStatus === 'В обработке' ? 'process' : 'done');
+
+                    const card = document.getElementById(`order-${orderId}`);
+                    if (newStatus === 'Новый') {
+                        card.classList.add('new');
+                    } else {
+                        card.classList.remove('new');
+                    }
+                }
+            });
+        }
+
+        // Удаление заказа
+        function deleteOrder(orderId) {
+            if (confirm('Удалить заказ №' + orderId + '?')) {
+                fetch(`/api/admin/delete_order/${orderId}`, {method: 'DELETE'})
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById(`order-${orderId}`).remove();
+                            location.reload();
+                        }
+                    });
+            }
+        }
+
+        // Автообновление каждые 30 секунд
+        setInterval(() => {
+            location.reload();
+        }, 30000);
+    </script>
 </body>
 </html>

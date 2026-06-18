@@ -3,22 +3,12 @@ import json
 import os
 from datetime import datetime
 import secrets
-import requests
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
 
-# Настройки Telegram (замени на свои)
-TELEGRAM_BOT_TOKEN = "8818412085:AAHtLmsWdYQ3yUQTlLWeAYZIpUxcFUOGM-c"  # Получить у @BotFather
-TELEGRAM_CHAT_ID = "449804614"  # Узнать у @userinfobot
+# Настройки из переменных окружения
 SITE_URL = os.environ.get('SITE_URL', 'https://tkaninaotrez.ru')
 SECRET_KEY = os.environ.get('SECRET_KEY', secrets.token_hex(32))
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.mail.ru')
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
-EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', '')
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
 
 app.secret_key = SECRET_KEY
 
@@ -28,55 +18,8 @@ def load_data():
         return json.load(f)
 
 
-def send_email_notification(order_data):
-    """Отправляет уведомление о новом заказе через Mail.ru"""
-    if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
-        print("❌ Почта не настроена")
-        return False
-
-    try:
-        msg = MIMEText(f"""
-НОВЫЙ ЗАКАЗ №{order_data['id']}
-================================
-
-📦 Товар: {order_data.get('product', 'Не указан')}
-👤 Клиент: {order_data.get('name', 'Не указано')}
-📞 Телефон: {order_data.get('phone', 'Не указан')}
-📏 Метраж: {order_data.get('meters', '0')} м
-💬 Комментарий: {order_data.get('comment', 'Нет')}
-
-🕐 Дата: {order_data['date']}
-📌 Статус: {order_data.get('status', 'Новый')}
-================================
-
-Ссылка на админку: {SITE_URL}/admin/orders
-        """, 'plain', 'utf-8')
-
-        msg['From'] = EMAIL_ADDRESS
-        msg['To'] = EMAIL_ADDRESS
-        msg['Subject'] = f"🔥 Новый заказ №{order_data['id']} — {order_data.get('product', '')}"
-
-        # Пробуем SSL
-        server = smtplib.SMTP_SSL('smtp.mail.ru', 465, timeout=10)
-        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-        server.sendmail(EMAIL_ADDRESS, EMAIL_ADDRESS, msg.as_string())
-        server.quit()
-
-        print(f"✅ Уведомление на почту отправлено (заказ №{order_data['id']})")
-        return True
-    except Exception as e:
-        print(f"❌ Ошибка отправки на почту: {e}")
-        return False
-
-
-def send_telegram_notification(order_data):
-    """Отправляет уведомление в Telegram (отключено — API заблокирован на сервере)"""
-    print("ℹ️ Telegram отключён (API недоступен на сервере)")
-    return False
-
-
 def save_order(order_data):
-    """Сохраняет заказ и отправляет уведомления"""
+    """Сохраняет заказ в JSON-файл"""
     orders_file = 'orders.json'
     orders = []
     if os.path.exists(orders_file):
@@ -91,10 +34,8 @@ def save_order(order_data):
     with open(orders_file, 'w', encoding='utf-8') as f:
         json.dump(orders, f, ensure_ascii=False, indent=2)
 
-    # Отправляем уведомления
-    email_sent = send_email_notification(order_data)
-
-    print(f"📊 Заказ №{order_data['id']}: Email={'✅' if email_sent else '❌'}")
+    print(
+        f"📊 Заказ №{order_data['id']} сохранён: {order_data.get('product', '')} — {order_data.get('name', '')} — {order_data.get('phone', '')}")
 
 
 # Главная страница
@@ -284,7 +225,7 @@ def api_search():
     return jsonify(results[:10])
 
 
-# Админка
+# Админка — просмотр заказов
 @app.route('/admin/orders')
 def admin_orders():
     orders_file = 'orders.json'
@@ -295,6 +236,46 @@ def admin_orders():
 
     orders.reverse()
     return render_template('admin_orders.html', orders=orders)
+
+
+# Админка — API удаления заказа
+@app.route('/api/admin/delete_order/<int:order_id>', methods=['DELETE'])
+def delete_order(order_id):
+    orders_file = 'orders.json'
+    if os.path.exists(orders_file):
+        with open(orders_file, 'r', encoding='utf-8') as f:
+            orders = json.load(f)
+
+        orders = [o for o in orders if o['id'] != order_id]
+
+        with open(orders_file, 'w', encoding='utf-8') as f:
+            json.dump(orders, f, ensure_ascii=False, indent=2)
+
+        return jsonify({'success': True})
+    return jsonify({'success': False}), 404
+
+
+# Админка — API изменения статуса
+@app.route('/api/admin/update_status/<int:order_id>', methods=['POST'])
+def update_status(order_id):
+    data = request.get_json()
+    new_status = data.get('status', 'Новый')
+
+    orders_file = 'orders.json'
+    if os.path.exists(orders_file):
+        with open(orders_file, 'r', encoding='utf-8') as f:
+            orders = json.load(f)
+
+        for order in orders:
+            if order['id'] == order_id:
+                order['status'] = new_status
+                break
+
+        with open(orders_file, 'w', encoding='utf-8') as f:
+            json.dump(orders, f, ensure_ascii=False, indent=2)
+
+        return jsonify({'success': True})
+    return jsonify({'success': False}), 404
 
 
 # Sitemap.xml
