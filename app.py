@@ -72,40 +72,9 @@ def send_email_notification(order_data):
 
 
 def send_telegram_notification(order_data):
-    """Отправляет уведомление в Telegram (если доступен)"""
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        print("❌ Telegram не настроен")
-        return False
-
-    message = f"""
-🔥 <b>НОВЫЙ ЗАКАЗ №{order_data['id']}</b>
-
-📦 <b>Товар:</b> {order_data.get('product', 'Не указан')}
-👤 <b>Клиент:</b> {order_data.get('name', 'Не указано')}
-📞 <b>Телефон:</b> <code>{order_data.get('phone', 'Не указан')}</code>
-📏 <b>Метраж:</b> {order_data.get('meters', '0')} м
-💬 <b>Комментарий:</b> {order_data.get('comment', 'Нет')}
-
-🕐 <i>{order_data['date']}</i>
-    """
-
-    try:
-        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-        response = requests.post(url, json={
-            "chat_id": TELEGRAM_CHAT_ID,
-            "text": message,
-            "parse_mode": "HTML"
-        }, timeout=5)
-
-        if response.json().get('ok'):
-            print(f"✅ Уведомление в Telegram отправлено")
-            return True
-        else:
-            print(f"❌ Ошибка Telegram: {response.json()}")
-            return False
-    except Exception as e:
-        print(f"❌ Telegram недоступен: {e}")
-        return False
+    """Отправляет уведомление в Telegram (отключено — API заблокирован на сервере)"""
+    print("ℹ️ Telegram отключён (API недоступен на сервере)")
+    return False
 
 
 def save_order(order_data):
@@ -126,9 +95,8 @@ def save_order(order_data):
 
     # Отправляем уведомления
     email_sent = send_email_notification(order_data)
-    tg_sent = send_telegram_notification(order_data)
 
-    print(f"📊 Заказ №{order_data['id']}: Email={'✅' if email_sent else '❌'}, Telegram={'✅' if tg_sent else '❌'}")
+    print(f"📊 Заказ №{order_data['id']}: Email={'✅' if email_sent else '❌'}")
 
 
 # Главная страница
