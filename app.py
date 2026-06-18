@@ -29,18 +29,13 @@ def load_data():
 
 
 def send_email_notification(order_data):
-    """Отправляет уведомление о новом заказе на почту"""
+    """Отправляет уведомление о новом заказе через Mail.ru"""
     if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
         print("❌ Почта не настроена")
         return False
 
     try:
-        msg = MIMEMultipart()
-        msg['From'] = EMAIL_ADDRESS
-        msg['To'] = EMAIL_ADDRESS
-        msg['Subject'] = f"🔥 Новый заказ №{order_data['id']} — {order_data.get('product', '')}"
-
-        body = f"""
+        msg = MIMEText(f"""
 НОВЫЙ ЗАКАЗ №{order_data['id']}
 ================================
 
@@ -55,14 +50,17 @@ def send_email_notification(order_data):
 ================================
 
 Ссылка на админку: {SITE_URL}/admin/orders
-        """
+        """, 'plain', 'utf-8')
 
-        msg.attach(MIMEText(body, 'plain', 'utf-8'))
+        msg['From'] = EMAIL_ADDRESS
+        msg['To'] = EMAIL_ADDRESS
+        msg['Subject'] = f"🔥 Новый заказ №{order_data['id']} — {order_data.get('product', '')}"
 
-        with smtplib.SMTP(EMAIL_HOST, EMAIL_PORT) as server:
-            server.starttls()
-            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            server.send_message(msg)
+        # Пробуем SSL
+        server = smtplib.SMTP_SSL('smtp.mail.ru', 465, timeout=10)
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.sendmail(EMAIL_ADDRESS, EMAIL_ADDRESS, msg.as_string())
+        server.quit()
 
         print(f"✅ Уведомление на почту отправлено (заказ №{order_data['id']})")
         return True
