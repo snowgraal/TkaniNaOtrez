@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Ткани оптом от производителя — купить оптом ткани в Ростове-на-Дону | TkaniNaOtrez{% endblock %}
+{% block description %}Купить ткани оптом в Ростове-на-Дону. Прямые поставки: Оксфорд, Грета, Дюспа, Таффета, Флис. Скидки до 7% от объема. Доставка по РФ. Звоните 8-958-571-84-63!{% endblock %}
+{% block keywords %}ткани оптом, купить ткани оптом, оптовые ткани Ростов, оксфорд оптом, грета оптом, таффета оптом, ткани оптом от производителя{% endblock %}
+{% block og_title %}Ткани оптом в Ростове-на-Дону — TkaniNaOtrez{% endblock %}
+{% block og_description %}Купить ткани оптом. Оксфорд, Грета, Дюспа, Таффета. От 30 метров. Доставка по РФ.{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <!-- Хлебные крошки -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/" class="text-primary">Главная</a></li>
+            <li class="breadcrumb-item active text-secondary">Ткани оптом</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3">Ткани оптом в Ростове-на-Дону</h1>
+    <p class="lead mb-4">Прямые поставки тканей от производителя. Более 100 позиций в наличии на складе. Работаем с физическими лицами, ИП, производствами и ателье по всей России.</p>
+
+    <!-- Преимущества -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3" data-aos="fade-up">
+            <div class="card bg-dark border-primary h-100 text-center p-4">
+                <i class="bi bi-percent display-4 text-primary mb-3"></i>
+                <h5>Скидки от объема</h5>
+                <p class="text-secondary">3% от 30м, 5% от 50м, 7% от 100м</p>
+            </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="card bg-dark border-success h-100 text-center p-4">
+                <i class="bi bi-box-seam display-4 text-success mb-3"></i>
+                <h5>От 30 метров</h5>
+                <p class="text-secondary">Минимальный оптовый заказ. Отрезаем кратно рулону.</p>
+            </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="card bg-dark border-info h-100 text-center p-4">
+                <i class="bi bi-truck display-4 text-info mb-3"></i>
+                <h5>Доставка по РФ</h5>
+                <p class="text-secondary">СДЭК, Деловые Линии, ПЭК. Отправка день в день.</p>
+            </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+    <div class="card bg-dark border-warning h-100 text-center p-4">
+        <i class="bi bi-cash display-4 text-warning mb-3"></i>
+        <h5>Выгодные цены</h5>
+        <p class="text-secondary">Прямые поставки с производства. Цены ниже рыночных на 15-20%.</p>
+    </div>
+</div>
+    </div>
+
+    <!-- Популярные позиции для опта -->
+    <h2 class="mb-4">Популярные ткани оптом</h2>
+    <div class="row g-3 mb-5">
+        {% set opt_items = [
+            {'name': 'Оксфорд 200 Гладь', 'price': 78, 'unit': 'м', 'desc': 'Тенты, укрывной материал, палатки'},
+            {'name': 'Оксфорд 210 Гладь', 'price': 108, 'unit': 'м', 'desc': 'Палатки, туристическое снаряжение'},
+            {'name': 'Оксфорд 300 Гладь', 'price': 173, 'unit': 'м', 'desc': 'Автотенты, гаражи, навесы'},
+            {'name': 'Грета Гладь', 'price': 126, 'unit': 'м', 'desc': 'Спецодежда, военная форма'},
+            {'name': 'Грета РипСтоп', 'price': 145, 'unit': 'м', 'desc': 'Тактическая одежда, снаряжение'},
+            {'name': 'Дюспа Мембрана', 'price': 180, 'unit': 'м', 'desc': 'Ветровки, штормовки, куртки'},
+            {'name': 'Таффета 190Т', 'price': 45, 'unit': 'м', 'desc': 'Подкладка, флаги, упаковка'},
+            {'name': 'Твил 2 Черный', 'price': 415, 'unit': 'м', 'desc': 'Премиум спецодежда'},
+        ] %}
+
+        {% for item in opt_items %}
+        <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="{{ loop.index * 50 }}">
+            <div class="card bg-dark border-secondary h-100 product-card">
+                <div class="card-body">
+                    <h6 class="text-white">{{ item.name }}</h6>
+                    <p class="text-secondary small">{{ item.desc }}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="fs-5 fw-bold text-primary">{{ item.price }} ₽</span>
+                        <small class="text-secondary">/ {{ item.unit }}</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-secondary">
+                    <a href="/catalog" class="btn btn-outline-primary btn-sm w-100">Все оптовые цены</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Как заказать оптом -->
+    <div class="card bg-dark border-primary mb-5" data-aos="fade-up">
+        <div class="card-body p-4">
+            <h2 class="mb-4">Как заказать ткани оптом</h2>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="bi bi-telephone fs-4 text-white"></i>
+                        </div>
+                        <h5>1. Звоните</h5>
+                        <p class="text-secondary">Назовите нужную ткань и метраж. Проконсультируем по наличию.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="bi bi-calculator fs-4 text-white"></i>
+                        </div>
+                        <h5>2. Получаете расчёт</h5>
+                        <p class="text-secondary">Рассчитаем точную стоимость с учётом скидки и доставки.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="bi bi-truck fs-4 text-white"></i>
+                        </div>
+                        <h5>3. Получаете заказ</h5>
+                        <p class="text-secondary">Самовывоз или доставка в любую точку России.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center py-4" data-aos="fade-up">
+        <h2 class="mb-3">Готовы сделать оптовый заказ?</h2>
+        <p class="lead mb-4">Позвоните прямо сейчас — рассчитаем стоимость за 5 минут!</p>
+        <a href="tel:+79585718463" class="btn btn-primary btn-lg px-5 btn-call">
+            <i class="bi bi-telephone-fill me-2"></i> 8-958-571-84-63
+        </a>
+    </div>
+
+</div>
+{% endblock %}

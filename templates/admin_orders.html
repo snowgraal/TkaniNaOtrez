@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказы — Админка</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body { background: #0a0a0a; color: white; }
+        .card { background: #111; border: 1px solid #2a2a2a; }
+        .new-order { border-left: 3px solid #0d6efd; }
+    </style>
+    <meta http-equiv="refresh" content="30">  <!-- Автообновление каждые 30 секунд -->
+</head>
+<body>
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="bi bi-list-check text-primary"></i> Заказы</h1>
+            <span class="badge bg-primary fs-5">{{ orders|length }} заявок</span>
+        </div>
+
+        {% if orders %}
+        <div class="row">
+            {% for order in orders %}
+            <div class="col-md-6 mb-3">
+                <div class="card p-3 {% if order.status == 'Новый' %}new-order{% endif %}">
+                    <div class="d-flex justify-content-between">
+                        <h5>Заказ #{{ order.id }}</h5>
+                        <span class="badge bg-{{ 'primary' if order.status == 'Новый' else 'secondary' }}">
+                            {{ order.status }}
+                        </span>
+                    </div>
+                    <hr class="border-secondary">
+                    <p class="mb-1"><strong>📦 {{ order.product }}</strong></p>
+                    <p class="mb-1">👤 {{ order.name }}</p>
+                    <p class="mb-1">📞 <a href="tel:+7{{ order.phone }}" class="text-primary">{{ order.phone }}</a></p>
+                    <p class="mb-1">📏 {{ order.meters }} метров</p>
+                    {% if order.comment %}
+                    <p class="mb-1">💬 {{ order.comment }}</p>
+                    {% endif %}
+                    <small class="text-secondary">{{ order.date }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="bi bi-inbox display-1 text-secondary"></i>
+            <h3>Пока нет заказов</h3>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

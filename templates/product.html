@@ -1,0 +1,367 @@
+{% extends "base.html" %}
+{% block title %}Купить {{ item.name }} — {{ category }} ткань цена {{ item.price }}₽/{{ item.unit }} | TkaniNaOtrez{% endblock %}
+{% block description %}Купить {{ item.name }} ({{ category }}) по цене {{ item.price }}₽ за {{ item.unit }}. Плотность {{ item.density }}, пропитка {{ item.impregnation }}. Отрез от 3 метров. Доставка по РФ. Звоните!{% endblock %}
+{% block keywords %}купить {{ item.name|lower }}, {{ category|lower }} ткань, {{ item.name|lower }} цена, ткань {{ category|lower }} купить{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <!-- Хлебные крошки -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/" class="text-primary">Главная</a></li>
+            <li class="breadcrumb-item"><a href="/catalog" class="text-primary">Каталог</a></li>
+            <li class="breadcrumb-item"><a href="/catalog?category={{ category }}" class="text-primary">{{ category }}</a></li>
+            <li class="breadcrumb-item active text-secondary">{{ item.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="row g-5">
+
+        <!-- Информация о товаре -->
+        <div class="col-lg-8" data-aos="fade-right">
+            <div class="card bg-dark border-secondary">
+                <div class="card-body p-4">
+                    <span class="badge bg-primary mb-2">{{ category }}</span>
+                    <h1 class="mb-3">{{ item.name }}</h1>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-black rounded">
+                                <small class="text-secondary">Плотность</small>
+                                <p class="mb-0 fs-5">{{ item.density }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-black rounded">
+                                <small class="text-secondary">Пропитка</small>
+                                <p class="mb-0 fs-5">{{ item.impregnation }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-primary bg-opacity-10 p-4 rounded-3 mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <span class="text-secondary">Цена:</span>
+                                <span class="fs-1 fw-bold text-primary">{{ item.price }} ₽</span>
+                                <span class="text-secondary">/ {{ item.unit }}</span>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <a href="tel:+79585718463" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-telephone"></i> Заказать
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Калькулятор -->
+                    <h5><i class="bi bi-calculator"></i> Расчёт стоимости</h5>
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-4">
+                            <label class="form-label small">Метраж</label>
+                            <input type="number" id="productMeters" class="form-control"
+                                   value="3" min="3" step="0.1">
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary w-100" onclick="calculateProduct()">
+                                Рассчитать
+                            </button>
+                        </div>
+                        <div class="col-md-4" id="productCalcResult"></div>
+                    </div>
+
+                    <div class="alert alert-success mt-3 mb-0">
+                        <i class="bi bi-percent"></i>
+                        При заказе от 30м — скидка 3%, от 50м — 5%, от 100м — 7%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма заявки -->
+        <div class="col-lg-4" data-aos="fade-left">
+            <div class="card border-primary sticky-top shadow-lg" style="top: 80px; z-index: 100; background: #1a1a2e;">
+                <div class="card-header text-white py-3" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
+                    <h5 class="mb-0 text-center">
+                        <i class="bi bi-send-fill me-2"></i>Заказать ткань
+                    </h5>
+                </div>
+                <div class="card-body p-4 text-white">
+                    <form id="orderForm" class="needs-validation" novalidate>
+                        <input type="hidden" name="product" value="{{ item.name }}">
+
+                        <div class="mb-3">
+                            <label class="form-label text-white">
+                                <i class="bi bi-person text-primary me-1"></i>Ваше имя
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background: #16213e; border-color: #2a2a4a; color: #0d6efd;">
+                                    <i class="bi bi-person"></i>
+                                </span>
+                                <input type="text" name="name" class="form-control text-white"
+                                       style="background: #16213e; border-color: #2a2a4a;"
+                                       placeholder="Алексей" required>
+                                <div class="invalid-feedback">Введите имя</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-white">
+                                <i class="bi bi-telephone text-primary me-1"></i>Телефон
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background: #16213e; border-color: #2a2a4a; color: #0d6efd;">+7</span>
+                                <input type="tel" name="phone" class="form-control text-white"
+                                       style="background: #16213e; border-color: #2a2a4a;"
+                                       placeholder="958 571-84-63" required pattern="[0-9\s\-\(\)]{10,}">
+                                <div class="invalid-feedback">Введите корректный номер</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-white">
+                                <i class="bi bi-rulers text-primary me-1"></i>Метраж (м)
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background: #16213e; border-color: #2a2a4a; color: #0d6efd;">
+                                    <i class="bi bi-rulers"></i>
+                                </span>
+                                <input type="number" name="meters" class="form-control text-white"
+                                       style="background: #16213e; border-color: #2a2a4a;"
+                                       placeholder="10" min="3" step="0.5" value="3" required>
+                                <span class="input-group-text" style="background: #16213e; border-color: #2a2a4a; color: #adb5bd;">м</span>
+                                <div class="invalid-feedback">Минимум 3 метра</div>
+                            </div>
+                            <small class="text-info">Минимальный заказ от 3 метров</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-white">
+                                <i class="bi bi-chat-dots text-primary me-1"></i>Комментарий
+                            </label>
+                            <textarea name="comment" class="form-control text-white" rows="3"
+                                      style="background: #16213e; border-color: #2a2a4a; resize: none;"
+                                      placeholder="Цвет, дополнительные пожелания..."></textarea>
+                        </div>
+
+                        <!-- Предпросмотр -->
+                        <div class="rounded-3 p-3 mb-3" style="background: #0f0f23; border: 1px solid #2a2a4a;">
+                            <small class="text-info">Ваш заказ:</small>
+                            <p class="mb-1 text-white"><strong>{{ item.name }}</strong></p>
+                            <p class="mb-1">
+                                <span class="text-warning fw-bold">{{ item.price }} ₽/{{ item.unit }}</span>
+                                × <span id="orderMetersDisplay" class="text-white">3</span> м
+                            </p>
+                            <p class="mb-0 fs-5">
+                                <strong class="text-white">Итого: <span id="orderTotalDisplay" class="text-warning">{{ item.price * 3 }} ₽</span></strong>
+                            </p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 btn-lg position-relative">
+                            <i class="bi bi-check-circle me-2"></i>
+                            <span class="submit-text">Отправить заявку</span>
+                            <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+                        </button>
+
+                        <p class="text-info text-center small mt-2 mb-0">
+                            <i class="bi bi-shield-check text-success"></i>
+                            Расчёт стоимости + звонок в течение часа
+                        </p>
+                    </form>
+
+                    <div id="orderResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Похожие товары -->
+    {% if related_items %}
+    <section class="mt-5">
+        <h2 class="mb-4 h3" data-aos="fade-up">Другие ткани категории «{{ category }}»</h2>
+        <div class="row g-3">
+            {% for rel in related_items %}
+            <div class="col-md-3" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
+                <a href="/product/{{ category }}/{{ rel.name }}" class="text-decoration-none">
+                    <div class="card bg-dark border-secondary h-100 product-card">
+                        <div class="card-body">
+                            <h3 class="h6 text-white">{{ rel.name }}</h3>
+                            <p class="text-secondary small">{{ rel.density }}</p>
+                            <span class="text-primary fw-bold">{{ rel.price }} ₽/{{ rel.unit }}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+</div>
+
+<!-- Schema.org микроразметка -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ item.name }}",
+  "description": "{{ item.name }} — {{ category }} ткань. Плотность {{ item.density }}. Пропитка {{ item.impregnation }}. Отрез от 3 метров.",
+  "category": "{{ category }}",
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ item.price }}",
+    "priceCurrency": "RUB",
+    "availability": "https://schema.org/InStock",
+    "url": "{{ request.url }}"
+  }
+}
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const itemPrice = {{ item.price }};
+
+function calculateProduct() {
+    const meters = parseFloat(document.getElementById('productMeters').value);
+
+    if (!meters || meters < 3) {
+        document.getElementById('productCalcResult').innerHTML =
+            '<div class="alert alert-warning py-1 mb-0">Мин. 3 метра</div>';
+        return;
+    }
+
+    fetch('/api/calculate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({price: itemPrice, meters})
+    })
+    .then(r => r.json())
+    .then(data => {
+        document.getElementById('productCalcResult').innerHTML =
+            `<h5 class="text-primary mb-0">${data.total} ₽</h5>
+             ${data.discount > 0 ? `<small class="text-success">Скидка: -${data.discount} ₽ (${data.discount_percent}%)</small>` : ''}`;
+    });
+}
+
+const orderForm = document.getElementById('orderForm');
+const metersInput = orderForm.querySelector('[name="meters"]');
+const orderMetersDisplay = document.getElementById('orderMetersDisplay');
+const orderTotalDisplay = document.getElementById('orderTotalDisplay');
+
+function updateOrderPreview() {
+    let meters = parseFloat(metersInput.value) || 3;
+
+    if (meters < 3) {
+        meters = 3;
+        metersInput.value = 3;
+    }
+
+    let totalPrice = itemPrice * meters;
+    let discountPercent = 0;
+    let discountAmount = 0;
+
+    if (meters >= 100) {
+        discountPercent = 7;
+        discountAmount = totalPrice * 0.07;
+    } else if (meters >= 50) {
+        discountPercent = 5;
+        discountAmount = totalPrice * 0.05;
+    } else if (meters >= 30) {
+        discountPercent = 3;
+        discountAmount = totalPrice * 0.03;
+    }
+
+    let finalPrice = totalPrice - discountAmount;
+
+    orderMetersDisplay.textContent = meters;
+
+    if (discountPercent > 0) {
+        orderTotalDisplay.innerHTML = `
+            <span style="text-decoration: line-through; color: #6c757d; font-size: 0.9em;">${totalPrice.toFixed(0)} ₽</span>
+            <span class="text-warning">${finalPrice.toFixed(0)} ₽</span>
+            <br><small class="text-success">Скидка ${discountPercent}%: -${discountAmount.toFixed(0)} ₽</small>
+        `;
+    } else {
+        orderTotalDisplay.innerHTML = `<span class="text-warning">${totalPrice.toFixed(0)} ₽</span>`;
+    }
+}
+
+metersInput.addEventListener('input', updateOrderPreview);
+metersInput.addEventListener('change', updateOrderPreview);
+updateOrderPreview();
+
+orderForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    if (!this.checkValidity()) {
+        e.stopPropagation();
+        this.classList.add('was-validated');
+        return;
+    }
+
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const submitText = submitBtn.querySelector('.submit-text');
+    const spinner = submitBtn.querySelector('.spinner-border');
+
+    submitBtn.disabled = true;
+    submitText.textContent = 'Отправляем...';
+    spinner.classList.remove('d-none');
+
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+
+    try {
+        const response = await fetch('/api/order', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        const orderResult = document.getElementById('orderResult');
+
+        if (result.success) {
+            orderResult.innerHTML = `
+                <div class="alert alert-success border-0">
+                    <h6 class="alert-heading"><i class="bi bi-check-circle-fill me-2"></i>Заявка принята!</h6>
+                    <p class="mb-0">${result.message}</p>
+                </div>
+            `;
+
+            this.reset();
+            this.classList.remove('was-validated');
+
+            submitBtn.disabled = false;
+            submitText.textContent = 'Отправить ещё';
+            spinner.classList.add('d-none');
+
+            metersInput.value = 3;
+            updateOrderPreview();
+
+            orderResult.scrollIntoView({ behavior: 'smooth' });
+
+        } else {
+            throw new Error(result.message);
+        }
+    } catch (error) {
+        document.getElementById('orderResult').innerHTML = `
+            <div class="alert alert-danger border-0">
+                <h6 class="alert-heading"><i class="bi bi-exclamation-triangle me-2"></i>Ошибка</h6>
+                <p class="mb-0">Не удалось отправить заявку. Позвоните нам:
+                   <a href="tel:+79585718463" class="alert-link">8-958-571-84-63</a>
+                </p>
+            </div>
+        `;
+
+        submitBtn.disabled = false;
+        submitText.textContent = 'Попробовать снова';
+        spinner.classList.add('d-none');
+    }
+});
+
+calculateProduct();
+</script>
+{% endblock %}

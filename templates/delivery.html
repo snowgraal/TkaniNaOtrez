@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Доставка тканей по России — TkaniNaOtrez | СДЭК, транспортные компании{% endblock %}
+{% block description %}Доставка тканей по всей России: СДЭК, Деловые Линии, ПЭК. Самовывоз в Ростове-на-Дону. Минимальный заказ от 3 метров. Узнайте стоимость!{% endblock %}
+{% block keywords %}доставка тканей, доставка ткани по России, ткани с доставкой, СДЭК ткани{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4">🚚 Доставка и оплата</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white mb-3">
+                <div class="card-body">
+                    <h5><i class="bi bi-box-seam"></i> Самовывоз</h5>
+                    <p><strong>Адрес:</strong> {{ data.delivery.self_pickup }}</p>
+                    <p><strong>Время:</strong> по договорённости</p>
+                    <p><strong>Минимальный заказ:</strong> от {{ data.delivery.min_order }} метров</p>
+                    <p class="text-success">*Самовывоз — бесплатно</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-dark text-white mb-3">
+                <div class="card-body">
+                    <h5><i class="bi bi-truck"></i> Доставка по России</h5>
+                    <p><strong>СДЭК:</strong> {{ data.delivery.cdelivery }}</p>
+                    <p><strong>Транспортные компании:</strong> {{ data.delivery.transport }}</p>
+                    <p class="text-info">*Стоимость рассчитывается индивидуально</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card bg-dark text-white mt-3">
+        <div class="card-body">
+            <h5><i class="bi bi-percent"></i> Скидки</h5>
+            <p>При заказе от <strong>{{ data.delivery.discount_from }}</strong> метров — скидка <strong>{{ data.delivery.discount_percent }}%</strong></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

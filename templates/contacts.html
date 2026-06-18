@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Контакты — TkaniNaOtrez | Телефон, адрес, Telegram{% endblock %}
+{% block description %}Контакты TkaniNaOtrez: телефон 8-958-571-84-63, адрес склада Ростов-на-Дону ул. Оганова 20с2. Звоните, пишите в Telegram и WhatsApp!{% endblock %}
+{% block keywords %}контакты ткани, телефон ткани Ростов, адрес ткани Ростов{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4">📞 Контакты</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white mb-3">
+                <div class="card-body">
+                    <h5><i class="bi bi-phone"></i> Телефон</h5>
+                    <p><a href="tel:{{ data.contacts.phone }}" class="text-primary fs-4">{{ data.contacts.phone }}</a></p>
+                    <h5><i class="bi bi-telegram"></i> Telegram</h5>
+                    <p><a href="https://t.me/{{ data.contacts.telegram }}" class="text-primary" target="_blank">@{{ data.contacts.telegram }}</a></p>
+                    <h5><i class="bi bi-whatsapp"></i> WhatsApp</h5>
+                    <p><a href="https://wa.me/7{{ data.contacts.phone }}" class="text-primary" target="_blank">{{ data.contacts.phone }}</a></p>
+                    <h5><i class="bi bi-envelope"></i> Email</h5>
+                    <p><a href="mailto:{{ data.contacts.email }}" class="text-primary">{{ data.contacts.email }}</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5><i class="bi bi-geo-alt"></i> Адрес склада</h5>
+                    <p>{{ data.delivery.self_pickup }}</p>
+                    <p class="text-secondary">Самовывоз — бесплатно. Предварительно позвоните.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-secondary mt-4">
+        ⚠️ Данный сайт не является публичной офертой. Цены и наличие уточняйте по телефону.
+    </div>
+</div>
+{% endblock %}

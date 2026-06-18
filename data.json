@@ -1,0 +1,174 @@
+{
+  "categories": [
+    {
+      "name": "Оксфорд",
+      "items": [
+        {"name": "200 ГЛАДЬ", "density": "80г/м²", "impregnation": "ПУ1000", "price": 78, "unit": "м"},
+        {"name": "210 ГЛАДЬ", "density": "110г/м²", "impregnation": "ПУ2000", "price": 108, "unit": "м"},
+        {"name": "210 КМФ", "density": "90г/м²", "impregnation": "ПУ1000", "price": 108, "unit": "м"},
+        {"name": "210 ПРИНТ", "density": "90г/м²", "impregnation": "ПУ1000", "price": 108, "unit": "м"},
+        {"name": "240 ПОЛОСА / КМФ", "density": "130г/м²", "impregnation": "ПУ2000", "price": 162, "unit": "м"},
+        {"name": "300 ГЛАДЬ", "density": "150г/м²", "impregnation": "ПУ4000", "price": 173, "unit": "м"},
+        {"name": "600 ПУ ГЛАДЬ", "density": "210г/м²", "impregnation": "ПУ2000", "price": 235, "unit": "м"},
+        {"name": "600 РС ГЛАДЬ", "density": "210г/м²", "impregnation": "ПУ2000", "price": 343, "unit": "м"},
+        {"name": "600 КМФ ГЛАДЬ", "density": "210г/м²", "impregnation": "ПУ2000", "price": 379, "unit": "м"},
+        {"name": "600 РС КМФ", "density": "210г/м²", "impregnation": "ПУ2000", "price": 343, "unit": "м"},
+        {"name": "600 ПВХ ГЛАДЬ", "density": "350г/м²", "impregnation": "ПВХ", "price": 171, "unit": "м"},
+        {"name": "600 ПВХ ЧЕРН", "density": "350г/м²", "impregnation": "ПВХ", "price": 198, "unit": "м"},
+        {"name": "600 ПВХ КМФ", "density": "350г/м²", "impregnation": "ПВХ", "price": 226, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Дюспа",
+      "items": [
+        {"name": "Дюспа 240 МИЛКИ", "density": "80г/м²", "impregnation": "Милки", "price": 123, "unit": "м"},
+        {"name": "Дюспа МЕМБРАНА ГЛАДЬ", "density": "120г/м²", "impregnation": "ВО", "price": 180, "unit": "м"},
+        {"name": "Дюспа МЕМБРАНА КМФ", "density": "120г/м²", "impregnation": "ВО", "price": 180, "unit": "м"},
+        {"name": "ДЮСПА ФЛИС РС КМФ", "density": "240г/м²", "impregnation": "ВО", "price": 207, "unit": "м"},
+        {"name": "ДЮСПА МИКРО КМФ", "density": "120г/м²", "impregnation": "ТПУ", "price": 171, "unit": "м"},
+        {"name": "ДЮСПА МИКРО ГЛАДЬ", "density": "120г/м²", "impregnation": "ТПУ", "price": 171, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Таффета",
+      "items": [
+        {"name": "190Т", "density": "55г/м²", "impregnation": "НЕТ", "price": 45, "unit": "м"},
+        {"name": "170Т", "density": "55г/м²", "impregnation": "НЕТ", "price": 36, "unit": "м"},
+        {"name": "190Т ПУ", "density": "80г/м²", "impregnation": "ПУ2000", "price": 90, "unit": "м"},
+        {"name": "ПОДКЛАДКА САРЖЕВАЯ БОРДО", "density": "—", "impregnation": "НЕТ", "price": 54, "unit": "м"},
+        {"name": "190Т КЛЯКСА", "density": "55г/м²", "impregnation": "НЕТ", "price": 108, "unit": "м"},
+        {"name": "ВЕТРОЗАЩИТКА 290Т", "density": "65г/м²", "impregnation": "НЕТ", "price": 76, "unit": "м"},
+        {"name": "ТАФФЕТА 162 СМ БЕЛАЯ", "density": "—", "impregnation": "НЕТ", "price": 58, "unit": "м"},
+        {"name": "ФОЛЬГА 210", "density": "65г/м²", "impregnation": "НЕТ", "price": 117, "unit": "м"},
+        {"name": "ПОЛОСА 190Т", "density": "55г/м²", "impregnation": "НЕТ", "price": 90, "unit": "м"},
+        {"name": "ТАФФЕТА ПУ РИП СТОП БЕЛАЯ", "density": "—", "impregnation": "ПУ", "price": 164, "unit": "м"},
+        {"name": "ТАФФЕТА ПУ РИП СТОП ЧЕРНАЯ", "density": "—", "impregnation": "ПУ", "price": 220, "unit": "м"},
+        {"name": "ТАФФЕТА ПУ ЧЕРНАЯ", "density": "—", "impregnation": "ПУ", "price": 99, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Тиси",
+      "items": [
+        {"name": "ТС 120 БЕЛАЯ", "density": "120г/м²", "impregnation": "ВО", "price": 135, "unit": "м"},
+        {"name": "ТС 120 ЦВЕТНАЯ", "density": "120г/м²", "impregnation": "ВО", "price": 144, "unit": "м"},
+        {"name": "ТС 120 Т032 МОХ", "density": "120г/м²", "impregnation": "—", "price": 207, "unit": "м"},
+        {"name": "ТС 120 КМФ", "density": "120г/м²", "impregnation": "ВО", "price": 126, "unit": "м"},
+        {"name": "ТС 150 БЕЛАЯ", "density": "150г/м²", "impregnation": "ВО", "price": 180, "unit": "м"},
+        {"name": "ТС 150 ЦВЕТНАЯ", "density": "150г/м²", "impregnation": "ВО", "price": 198, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Твил",
+      "items": [
+        {"name": "ТВИЛ 1", "density": "210г/м²", "impregnation": "ВО", "price": 180, "unit": "м"},
+        {"name": "ТВИЛ 2", "density": "250г/м²", "impregnation": "ВО", "price": 226, "unit": "м"},
+        {"name": "ТВИЛ 2 ЧЕРНЫЙ / Т-СЕРЫЙ / С-СЕРЫЙ", "density": "250г/м²", "impregnation": "ВО", "price": 415, "unit": "м"},
+        {"name": "ТВИЛ ПИЧ КМФ", "density": "210г/м²", "impregnation": "ВО", "price": 280, "unit": "м"},
+        {"name": "ТВИЛ ПИЧ ХАКИ", "density": "210г/м²", "impregnation": "ВО", "price": 280, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Грета",
+      "items": [
+        {"name": "ГЛАДЬ", "density": "195г/м²", "impregnation": "ВО", "price": 126, "unit": "м"},
+        {"name": "ОРАНЖ ЛИМОН БЕЛАЯ", "density": "195г/м²", "impregnation": "ВО", "price": 150, "unit": "м"},
+        {"name": "ГРЕТА ЧЕРНАЯ", "density": "195г/м²", "impregnation": "ВО", "price": 176, "unit": "м"},
+        {"name": "КМФ", "density": "195г/м²", "impregnation": "ВО", "price": 144, "unit": "м"},
+        {"name": "ГЛАДЬ РИП-СТОП", "density": "195г/м²", "impregnation": "ВО", "price": 145, "unit": "м"},
+        {"name": "КМФ РИП-СТОП", "density": "195г/м²", "impregnation": "ВО", "price": 168, "unit": "м"},
+        {"name": "КМФ РИП-СТОП ФЛИС", "density": "270г/м²", "impregnation": "ВО", "price": 307, "unit": "м"},
+        {"name": "ЛЮКС КМФ РИП-СТОП ФЛИС", "density": "270г/м²", "impregnation": "ВО", "price": 289, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Репс",
+      "items": [
+        {"name": "ГЛАДЬ", "density": "230г/м²", "impregnation": "ВО", "price": 253, "unit": "м"},
+        {"name": "КМФ", "density": "230г/м²", "impregnation": "ВО", "price": 271, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Флис (за кг)",
+      "items": [
+        {"name": "130г", "density": "130г/м²", "impregnation": "Односторонний начес", "price": 541, "unit": "кг"},
+        {"name": "180г", "density": "180г/м²", "impregnation": "Односторонний начес", "price": 541, "unit": "кг"},
+        {"name": "230г", "density": "230г/м²", "impregnation": "Двусторонний начес", "price": 541, "unit": "кг"},
+        {"name": "260г МОХ", "density": "260г/м²", "impregnation": "Двусторонний начес", "price": 776, "unit": "кг"},
+        {"name": "260г ОДНОТОН", "density": "260г/м²", "impregnation": "—", "price": 722, "unit": "кг"}
+      ]
+    },
+    {
+      "name": "Сетки (за кг)",
+      "items": [
+        {"name": "ТРИКОТАЖНАЯ", "density": "60г/м²", "impregnation": "НЕТ", "price": 812, "unit": "кг"},
+        {"name": "МОСКИТНАЯ", "density": "40г/м²", "impregnation": "НЕТ", "price": 992, "unit": "кг"},
+        {"name": "КМФ", "density": "125г/м²", "impregnation": "НЕТ", "price": 667, "unit": "кг"},
+        {"name": "СЕТКА НЕЙЛОН ГЛАДЬ", "density": "130г/м²", "impregnation": "НЕТ", "price": 97, "unit": "м"},
+        {"name": "СЕТКА НЕЙЛОН ПРИНТ", "density": "130г/м²", "impregnation": "НЕТ", "price": 135, "unit": "м"},
+        {"name": "СЕТКА НЕЙЛОН СОТЫ", "density": "130г/м²", "impregnation": "НЕТ", "price": 135, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Нейлон",
+      "items": [
+        {"name": "НЕЙЛОН ГЛАДЬ 130г", "density": "130г/м²", "impregnation": "НЕТ", "price": 289, "unit": "м"},
+        {"name": "НЕЙЛОН ГЛАДЬ 150г", "density": "150г/м²", "impregnation": "НЕТ", "price": 289, "unit": "м"},
+        {"name": "ГЛАДЬ 175г", "density": "175г/м²", "impregnation": "НЕТ", "price": 180, "unit": "м"},
+        {"name": "ПРИНТ 150г", "density": "150г/м²", "impregnation": "НЕТ", "price": 289, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Спандекс",
+      "items": [
+        {"name": "СПАНДЕКС 150г", "density": "150г/м²", "impregnation": "НЕТ", "price": 289, "unit": "м"},
+        {"name": "СПАНДЕКС САУРОС ГЛАДЬ 180г", "density": "180г/м²", "impregnation": "НЕТ", "price": 307, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Прочие",
+      "items": [
+        {"name": "АЛОВА МЕМБРАНА", "density": "160г/м²", "impregnation": "ВО", "price": 171, "unit": "м"},
+        {"name": "АНТИСТАТИК", "density": "250г/м²", "impregnation": "НМВО", "price": 487, "unit": "м"},
+        {"name": "КАНАДА", "density": "140г/м²", "impregnation": "ВО", "price": 189, "unit": "м"},
+        {"name": "ПАЛАТКА 36", "density": "250г/м²", "impregnation": "НЕТ", "price": 231, "unit": "м"},
+        {"name": "АТЛАС", "density": "210ТЕКС, 80г/м²", "impregnation": "НЕТ", "price": 61, "unit": "м"},
+        {"name": "ГАБАРДИН", "density": "160г/м²", "impregnation": "НЕТ", "price": 99, "unit": "м"},
+        {"name": "САТИН ПРИНТ", "density": "130г/м²", "impregnation": "ВО", "price": 307, "unit": "м"},
+        {"name": "КОШАЧИЙ ГЛАЗ", "density": "140г/м²", "impregnation": "ПУ", "price": 171, "unit": "м"},
+        {"name": "ТАСЛАН (ФАЙЛ)", "density": "185ТЕКС, 110г/м²", "impregnation": "ПУ", "price": 126, "unit": "м"},
+        {"name": "ТАСЛАН БОРДО", "density": "185ТЕКС, 110г/м²", "impregnation": "ПУ", "price": 162, "unit": "м"},
+        {"name": "ВИСКОЗА КМФ", "density": "130г/м²", "impregnation": "ВО", "price": 235, "unit": "м"},
+        {"name": "ЕЛОЧКА КМФ", "density": "250г/м²", "impregnation": "ВО", "price": 325, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Торнадо",
+      "items": [
+        {"name": "ГЛАДЬ", "density": "260г/м²", "impregnation": "ВО", "price": 307, "unit": "м"},
+        {"name": "КМФ", "density": "260г/м²", "impregnation": "ВО", "price": 271, "unit": "м"}
+      ]
+    },
+    {
+      "name": "Бязь",
+      "items": [
+        {"name": "БЯЗЬ 120г ХАКИ", "density": "120г/м²", "impregnation": "НЕТ", "price": 202, "unit": "м"},
+        {"name": "БЯЗЬ 120г ЧЕРН", "density": "120г/м²", "impregnation": "НЕТ", "price": 202, "unit": "м"},
+        {"name": "БЯЗЬ ГОСТ 140г", "density": "140г/м²", "impregnation": "НЕТ", "price": 231, "unit": "м"}
+      ]
+    }
+  ],
+  "delivery": {
+    "self_pickup": "ул. Оганова 20с2",
+    "cdelivery": "по тарифам СДЭК",
+    "transport": "по тарифам транспортных компаний",
+    "min_order": 3,
+    "discount_from": 30,
+    "discount_percent": 5
+  },
+  "contacts": {
+    "phone": "89585718463",
+    "max": "89585718463",
+    "telegram": "89585718463",
+    "email": "snowgraal@mail.ru"
+  }
+}
